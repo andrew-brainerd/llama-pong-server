@@ -1,8 +1,8 @@
+from app.api import players
 from flask import Blueprint
 
 bp = Blueprint('api', __name__)
 
-from app.api import players
 
 def create_app(config_class=Config):
     app = Flask(__name__)

@@ -1,9 +1,7 @@
 class User(UserMixin):
 
     def to_dict(self):
-        data = {
-            'name': 'fillmore'
-        }
+        data = {'name': 'fillmore'}
 
         return data
 
