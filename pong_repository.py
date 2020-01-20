@@ -4,11 +4,11 @@ import os
 
 class PongRepository():
     def __init__(self):
-        user = os.getenv("MONGO_USER")
-        password = os.getenv("MONGO_PASSWORD")
-        address = os.getenv("MONGO_ADDRESS")
-        database = os.getenv("MONGO_DATABASE")
-        self.client = MongoClient(f"mongodb://{user}:{password}@{address}/{database}?retryWrites=false")
+        user = os.getenv('MONGO_USER')
+        password = os.getenv('MONGO_PASSWORD')
+        address = os.getenv('MONGO_ADDRESS')
+        database = os.getenv('MONGO_DATABASE')
+        self.client = MongoClient(f'mongodb://{user}:{password}@{address}/{database}?retryWrites=false')
 
     def get_player(self, id):
         db = self.client.heroku_xwp0v8x7
