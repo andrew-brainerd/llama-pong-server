@@ -1,10 +1,18 @@
 import flask
 from flask import jsonify
 from pong_service import PongService
+import datetime
+import json
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 pong_service = PongService()
+
+@app.route('/api/time', methods=['GET'])
+def get_test():
+    current_time = str(datetime.datetime.now())
+    data = json.dumps({"time": current_time})
+    return jsonify(data)
 
 @app.route('/api/players/<string:id>', methods=['GET'])
 def get_player(id):
