@@ -33,6 +33,3 @@ def create_player(id):
 def get_players():
     data = pong_service.get_players()
     return jsonify(data)
-
-
-app.run()
