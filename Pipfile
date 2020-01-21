@@ -4,11 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autopep8 = {index = "pypi",version = "*"}
 
 [packages]
-flask = "*"
-pymongo = "*"
-python-dotenv = "*"
+flask = {index = "pypi",version = "*"}
+gunicorn = {index = "pypi",version = "*"}
+pymongo = {index = "pypi",version = "*"}
+python-dotenv = {index = "pypi",version = "*"}
 
 [requires]
 python_version = "3.7"

@@ -1,4 +1,5 @@
-from pong_repository import PongRepository 
+from pong_repository import PongRepository
+
 
 class PongService():
     def test(self):

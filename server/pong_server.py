@@ -8,6 +8,7 @@ from pong_service import PongService
 
 PORT = 45322
 
+
 class RequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
@@ -23,13 +24,15 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json')
         self.end_headers()
         current_time = str(datetime.datetime.now())
-        message = json.dumps({"time": current_time})
-        self.wfile.write(bytes(message, "utf8"))
+        message = json.dumps({'time': current_time})
+        self.wfile.write(bytes(message, 'utf8'))
+
 
 def run():
-    print(f"Starting server at port {PORT}...")
+    print(f'Starting server at port {PORT}...')
     server_address = ('127.0.0.1', PORT)
     httpd = HTTPServer(server_address, RequestHandler)
     httpd.serve_forever()
+
 
 run()
