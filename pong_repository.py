@@ -73,16 +73,14 @@ class PongRepository():
     def update_game(self, game_id, player1, player2):
         db = self.client[self.database]
         collection = db[GAMES_COLLECTION]
-        collection.update_one({GAME_ID: game_id}, {'$set': {
-            'player1': {
-                'playerId': player1['playerId'],
-                'score': player1[SCORE]
-            },
-            'player2': {
-                'playerId': player2['playerId'],
-                'score': player2[SCORE]
-            }
+        collection.update_one({GAME_ID: game_id}, {'$set' : {
+            'player1': player1,
+            'player2': player2
         }})
+        # collection.update_one({GAME_ID: game_id}, { '$set' : {
+        #     'player1.$.score': player1[SCORE],
+        #     'player2.$.score': player2[SCORE]
+        # }})
            
     def get_unfinished_games(self):
         db = self.client[self.database]
