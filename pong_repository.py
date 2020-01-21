@@ -64,4 +64,7 @@ class PongRepository():
             'timeFinished': None
         }
         collection.insert_one(data)
-        return guid
+        return_data = {
+            'gameId': guid
+        }
+        return return_data
