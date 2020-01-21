@@ -7,6 +7,7 @@ PLAYERS_COLLECTION = 'players'
 GAMES_COLLECTION = 'games'
 SCORE = 'score'
 GAME_ID = 'gameId'
+TIME_FINISHED = 'timeFinished'
 
 class PongRepository():
     def __init__(self):
@@ -43,24 +44,17 @@ class PongRepository():
         data = collection.find_one({}, {'_id': False})
         return data
 
-    def create_new_game(self, id1, id2):
+    def create_new_game(self, player1, player2):
         db = self.client[self.database]
         collection = db[GAMES_COLLECTION]
         guid = str(uuid.uuid4())
         current_time = str(datetime.datetime.now())
-        guid1 = str(uuid.uuid4())
-        guid2 = str(uuid.uuid4())
-        print (f'guid2 = {guid2}')
+        player1[SCORE] = 0
+        player2[SCORE] = 0
         data = {
             'gameId': guid,
-            'player1': {
-                'playerId': id1,
-                'score': 0
-            },
-            'player2': {
-                'playerId': id2,
-                'score': 0
-            },
+            'player1': player1,
+            'player2': player2,
             'timeStarted': current_time,
             'timeFinished': None
         }
@@ -89,5 +83,10 @@ class PongRepository():
                 'score': player2[SCORE]
             }
         }})
-        
-        
+           
+    def get_unfinished_games(self):
+        db = self.client[self.database]
+        collection = db[GAMES_COLLECTION]
+        data = collection.find({TIME_FINISHED: None}, {'_id': False})
+        print (data)
+        return data

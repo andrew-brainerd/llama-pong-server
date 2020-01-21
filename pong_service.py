@@ -23,15 +23,11 @@ class PongService():
     def create_new_game(self, body):
         player1 = body['player1']
         player2 = body['player2']
-        if 'playerId' in player1:
-            id1 = player1['playerId']
-        else:
-            id1 = EMPTY_GUID
-        if 'playerId' in player2:
-            id2 = player2['playerId']
-        else:
-            id2 = EMPTY_GUID
-        return self.pong_repo.create_new_game(id1, id2)
+        if PLAYER_ID not in player1:
+            player1[PLAYER_ID] = EMPTY_GUID
+        if PLAYER_ID not in player2:
+            player2[PLAYER_ID] = EMPTY_GUID
+        return self.pong_repo.create_new_game(player1, player2)
 
     def get_game(self, game_id):
         return self.pong_repo.get_game(game_id)
@@ -58,6 +54,9 @@ class PongService():
                 self.pong_repo.update_game(game_id, player2, player1)
             else:
                 InvalidUsage(f'PlayerIds did not match game', status_code=400)
+
+    def get_unfinished_games(self):
+        return self.pong_repo.get_unfinished_games()
 
             
             

@@ -52,6 +52,11 @@ def create_new_game():
     data = pong_service.create_new_game(request.json)
     return jsonify(data)
 
+@app.route('/api/games/unfinished', methods=['GET'])
+def get_unfinished_games():
+    data = pong_service.get_unfinished_games()
+    return jsonify(data)
+
 @app.route('/api/games/<string:id>', methods=['GET'])
 def get_game(id):
     data = pong_service.get_game(id)
