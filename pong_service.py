@@ -33,6 +33,9 @@ class PongService():
             id2 = EMPTY_GUID
         return self.pong_repo.create_new_game(id1, id2)
 
+    def get_game(self, game_id):
+        return self.pong_repo.get_game(game_id)
+
     def update_game(self, game_id, body):
         player1 = body['player1']
         player2 = body['player2']
