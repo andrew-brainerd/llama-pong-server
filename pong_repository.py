@@ -1,8 +1,10 @@
 from pymongo import MongoClient
 import os
+import uuid
+import datetime
 
 PLAYERS_COLLECTION = 'players'
-
+GAMES_COLLECTION = 'games'
 
 class PongRepository():
     def __init__(self):
@@ -16,23 +18,50 @@ class PongRepository():
     def get_player(self, id):
         db = self.client[self.database]
         collection = db[PLAYERS_COLLECTION]
-        collection.find({'playerId': id})
-        data = {'name': 'fillmore'}
+        data = collection.find_one({'playerId': id}, {'_id': False})
         return data
 
-    def create_player(self, id):
+    def create_player(self, name):
         db = self.client[self.database]
         collection = db[PLAYERS_COLLECTION]
+        guid = str(uuid.uuid4())
         data = {
-            'name': 'fillmore'
+            'name': name,
+            'playerId': guid
         }
         collection.insert_one(data)
-        print(data)
-        print(data['name'])
         data['_id'] = str(data['_id'])
-
         return data
 
     def get_players(self):
-        data = {'name': 'fillmore'}
+        print ("hit me baby one more time")
+        db = self.client[self.database]
+        collection = db[PLAYERS_COLLECTION]
+        print ("hit me baby two more times")
+        data = collection.find_one({}, {'_id': False})
+        print (data)
         return data
+
+    def create_new_game(self, id1, id2):
+        db = self.client[self.database]
+        collection = db[GAMES_COLLECTION]
+        guid = str(uuid.uuid4())
+        current_time = str(datetime.datetime.now())
+        guid1 = str(uuid.uuid4())
+        guid2 = str(uuid.uuid4())
+        print (f'guid2 = {guid2}')
+        data = {
+            'gameId': guid,
+            'player1': {
+                'playerId': id1,
+                'score': 0
+            },
+            'player2': {
+                'playerId': id2,
+                'score': 0
+            },
+            'timeStarted': current_time,
+            'timeFinished': None
+        }
+        collection.insert_one(data)
+        return guid
