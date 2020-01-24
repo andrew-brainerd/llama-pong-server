@@ -67,4 +67,4 @@ def update_game(id):
     print ('hit update_game finish')
     return jsonify(data), 200, {'ContentType':'application/json'}
 
-app.run()
+#app.run()
