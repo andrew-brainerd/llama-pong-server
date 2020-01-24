@@ -1,5 +1,5 @@
 import flask
-from flask import jsonify, request
+from flask import jsonify, request, make_response
 from pong_service import PongService
 import datetime
 import json
@@ -11,9 +11,7 @@ pong_service = PongService()
 
 @app.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
-    print(error)
-    response = jsonify(error.to_dict())
-    #response.status = 400 #error.status_code
+    response = make_response(jsonify(error.to_dict()), error.status_code)
     return response
 
 @app.after_request
@@ -66,6 +64,7 @@ def get_game(id):
 def update_game(id):
     pong_service.update_game(id, request.json)
     data = {'success':True}
+    print ('hit update_game finish')
     return jsonify(data), 200, {'ContentType':'application/json'}
 
-#app.run()
+app.run()

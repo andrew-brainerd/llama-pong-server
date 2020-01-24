@@ -40,7 +40,6 @@ class PongService():
         if PLAYER_ID not in player2:
             raise InvalidUsage(f'The {PLAYER_ID} not found in player2', status_code=400)
         game = self.pong_repo.get_game(game_id)
-        print (game)
         if game is None:
             raise InvalidUsage('No game found', status_code=404)
         elif game[TIME_FINISHED] is not None:
